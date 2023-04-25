@@ -1,0 +1,22 @@
+name: 'Get Last Version'
+description: 'Get the latest stable version of a GitHub project or other software'
+inputs:
+  repository:
+    description: 'Repository URL or software name'
+    required: true
+  branch:
+    description: 'Branch name (optional)'
+    required: false
+  github_token:
+    description: 'GitHub token (optional)'
+    required: false
+outputs:
+  last_version:
+    description: 'The latest stable version'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.repository }}
+    - ${{ inputs.branch }}
+    - ${{ inputs.github_token }}
