@@ -46,3 +46,6 @@ runs:
     - ${{ inputs.extra_args }}
     - "--working_directory"
     - ${{ inputs.working_directory }}
+branding:
+  icon: 'arrow-down'
+  color: 'purple'
