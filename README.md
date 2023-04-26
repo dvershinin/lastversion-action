@@ -1,7 +1,9 @@
 # lastversion-action
 
-This GitHub Action uses the `lastversion` command-line utility to fetch the latest stable version of any GitHub project 
+This GitHub Action uses the [`lastversion`](https://lastversion.getpagespeed.com/) command-line utility to fetch the latest stable version of any GitHub project 
 or other software.
+
+*Tremendously useful for continious integration and building your software against latest stable dependencies and avoid hardcoding of software versions in your workflows*.
 
 ## Inputs
 
