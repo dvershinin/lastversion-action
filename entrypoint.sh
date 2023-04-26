@@ -37,6 +37,8 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
+echo $GITHUB_TOKEN
+
 # Set the GITHUB_TOKEN environment variable
 export GITHUB_TOKEN="$github_token"
 
