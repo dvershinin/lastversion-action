@@ -5,6 +5,7 @@ format=""
 action=""
 repository=""
 branch=""
+extra_args=""
 github_token=""
 
 # Parse the named arguments
@@ -26,6 +27,11 @@ while [ "$#" -gt 0 ]; do
       repository="$2"
       shift 2
       ;;
+    --extra_args)
+      extra_args="$2"
+      shift 2
+      ;;
+    # other arguments ...
     --github_token)
       github_token="$2"
       shift 2
@@ -37,16 +43,14 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
-echo $GITHUB_TOKEN
-
 # Set the GITHUB_TOKEN environment variable
 export GITHUB_TOKEN="$github_token"
 
 # Run the lastversion command with the given inputs
 if [ -z "$branch" ]; then
-  result=$(lastversion --verbose --format "$format" "$action" "$repository")
+  result=$(lastversion $extra_args --format "$format" "$action" "$repository")
 else
-  result=$(lastversion --verbose --branch "$branch" --format "$format" "$action" "$repository")
+  result=$(lastversion $extra_args --branch "$branch" --format "$format" "$action" "$repository")
 fi
 
 # Set the result as an output variable
