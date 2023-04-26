@@ -14,7 +14,5 @@ else
   result=$(lastversion "$repository" --branch "$branch")
 fi
 
-# Print the result and set it as an output variable
-echo "Last version: $result"
-
+# Set the result as an output variable
 echo "last_version=${result}" >> "$GITHUB_OUTPUT"
