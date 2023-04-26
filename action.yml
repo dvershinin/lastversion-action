@@ -1,12 +1,20 @@
 name: 'Get Last Version'
 description: 'Get the latest stable version of a GitHub project or other software'
 inputs:
+  action:
+    description: 'The action to perform (e.g., get)'
+    required: false
+    default: 'get'
   repository:
     description: 'Repository URL or software name'
     required: true
   branch:
     description: 'Branch name (optional)'
     required: false
+  format:
+    description: 'The output format of the result (version, json, or assets)'
+    required: false
+    default: 'version'
   github_token:
     description: 'GitHub token (optional)'
     required: false
@@ -17,6 +25,13 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - "--action"
+    - ${{ inputs.action }}
+    - "--format"
+    - ${{ inputs.format }}
+    - "--repository"
     - ${{ inputs.repository }}
+    - "--branch"
     - ${{ inputs.branch }}
+    - "--github_token"
     - ${{ inputs.github_token }}

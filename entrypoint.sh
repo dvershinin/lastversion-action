@@ -1,17 +1,49 @@
 #!/bin/sh -l
 
-# Parse inputs from the GitHub action
-repository="$1"
-branch="$2"
+# Initialize variables
+action=""
+repository=""
+branch=""
+github_token=""
+
+# Parse the named arguments
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --format)
+      format="$2"
+      shift 2
+      ;;
+    --action)
+      action="$2"
+      shift 2
+      ;;
+    --branch)
+      branch="$2"
+      shift 2
+      ;;
+    --repository)
+      repository="$2"
+      shift 2
+      ;;
+    --github_token)
+      github_token="$2"
+      shift 2
+      ;;
+    *)
+      echo "Unknown argument: $1"
+      exit 1
+      ;;
+  esac
+done
 
 # Set the GITHUB_TOKEN environment variable
-export GITHUB_TOKEN="$3"
+export GITHUB_TOKEN="$github_token"
 
 # Run the lastversion command with the given inputs
 if [ -z "$branch" ]; then
-  result=$(lastversion "$repository")
+  result=$(lastversion --format "$format" "$action" "$repository")
 else
-  result=$(lastversion "$repository" --branch "$branch")
+  result=$(lastversion --format "$format" "$action" --branch "$branch" "$repository")
 fi
 
 # Set the result as an output variable
