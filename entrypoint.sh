@@ -42,9 +42,9 @@ export GITHUB_TOKEN="$github_token"
 
 # Run the lastversion command with the given inputs
 if [ -z "$branch" ]; then
-  result=$(lastversion --format "$format" "$action" "$repository")
+  result=$(lastversion --verbose --format "$format" "$action" "$repository")
 else
-  result=$(lastversion --branch "$branch" --format "$format" "$action" "$repository")
+  result=$(lastversion --verbose --branch "$branch" --format "$format" "$action" "$repository")
 fi
 
 # Set the result as an output variable
