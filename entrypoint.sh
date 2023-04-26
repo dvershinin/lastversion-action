@@ -7,6 +7,7 @@ repository=""
 branch=""
 extra_args=""
 github_token=""
+working_directory=""
 
 # Parse the named arguments
 while [ "$#" -gt 0 ]; do
@@ -36,6 +37,10 @@ while [ "$#" -gt 0 ]; do
       github_token="$2"
       shift 2
       ;;
+    --working_directory)
+      working_directory="$2"
+      shift 2
+      ;;
     *)
       echo "Unknown argument: $1"
       exit 1
@@ -45,6 +50,8 @@ done
 
 # Set the GITHUB_TOKEN environment variable
 export GITHUB_TOKEN="$github_token"
+
+cd $working_directory
 
 # Run the lastversion command with the given inputs
 if [ -z "$branch" ]; then

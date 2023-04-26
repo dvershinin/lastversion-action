@@ -21,6 +21,10 @@ inputs:
   github_token:
     description: 'GitHub token (optional)'
     required: false
+  working_directory:
+    description: 'The working directory for the action'
+    required: false
+    default: './'
 outputs:
   last_version:
     description: 'The latest stable version'
@@ -40,3 +44,5 @@ runs:
     - ${{ inputs.github_token }}
     - "--extra_args"
     - ${{ inputs.extra_args }}
+    - "--working_directory"
+    - ${{ inputs.working_directory }}
