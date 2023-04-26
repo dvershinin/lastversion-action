@@ -1,5 +1,5 @@
 #!/bin/sh -l
-set -x
+
 # Initialize variables
 format=""
 action=""

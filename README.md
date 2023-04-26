@@ -20,6 +20,10 @@ Optional. The output format for the results. Allowed values are: version, json, 
 ### `extra_args`
 Optional. Any extra arguments to pass to the lastversion utility.
 
+### `working_directory`
+
+Change the working directory for the action. Default is the current directory.
+
 ## Outputs
 
 ### `last_version`
