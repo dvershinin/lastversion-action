@@ -15,6 +15,9 @@ inputs:
     description: 'The output format of the result (version, json, or assets)'
     required: false
     default: 'version'
+  extra_args:
+    description: 'Extra args'
+    required: false
   github_token:
     description: 'GitHub token (optional)'
     required: false
@@ -35,3 +38,5 @@ runs:
     - ${{ inputs.branch }}
     - "--github_token"
     - ${{ inputs.github_token }}
+    - "--extra_args"
+    - ${{ inputs.extra_args }}
