@@ -16,4 +16,5 @@ fi
 
 # Print the result and set it as an output variable
 echo "Last version: $result"
-echo "::set-output name=last_version::$result"
+
+echo "last_version=${result}" >> "$GITHUB_OUTPUT"
