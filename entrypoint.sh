@@ -48,6 +48,8 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
+echo "Current repo: $GITHUB_REPOSITORY"
+
 # Set the GITHUB_TOKEN environment variable
 export GITHUB_TOKEN="$github_token"
 
