@@ -48,12 +48,17 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
-echo "Current repo: $GITHUB_REPOSITORY"
-
-# Set the GITHUB_TOKEN environment variable
-export GITHUB_TOKEN="$github_token"
-
 cd $working_directory
+
+# if $repository is empty, use the current repository
+if [ -z "$repository" ]; then
+  repository="$GITHUB_REPOSITORY"
+fi
+
+# if $github_token is not empty, override the built-in token
+if [ -n "$github_token" ]; then
+  export GITHUB_TOKEN="$github_token"
+fi
 
 # Run the lastversion command with the given inputs
 if [ -z "$branch" ]; then

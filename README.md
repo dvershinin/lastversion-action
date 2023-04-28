@@ -8,17 +8,32 @@ or other software.
 ## Inputs
 
 ### `repository`
-**Required**. The GitHub repository or the name of the software for which you want to fetch the latest stable version. 
-Example: nginx or https://github.com/mautic/mautic.
+Optional.
+The GitHub repository or the name of the software for which you want to fetch the latest stable version. 
+Example: `nginx` or `https://github.com/mautic/mautic`.
+Defaults to GitHub repository of the current workflow.
+
+### `action`
+Optional. The action to perform:
+
+* `get` to get the latest version string (default action).
+* `unzip` to extract the latest release archive to the current directory.
+* `download` to download the latest release archive to the current directory.
 
 ### `branch`
-Optional. The branch to fetch the latest version from. Default is no branch filtering. Example: mainline.
+Optional. 
+The branch to fetch the latest version from. Default is no branch filtering. Example: `mainline`.
+Useful only for rare cases where a single repository hosts multiple software projects or version lines.
+Can be also used to specify a major version, e.g. `2` or `2.0` to fetch the latest version of `2.x` branch.
 
 ### `output_format`
-Optional. The output format for the results. Allowed values are: version, json, and assets. Default is version.
+Optional. 
+The output format for `get` action. 
+Allowed values are: `version`, `json`, and `assets`. 
+Default is `version`.
 
 ### `extra_args`
-Optional. Any extra arguments to pass to the lastversion utility.
+Optional. Any extra arguments to pass to the `lastversion` utility.
 
 ### `working_directory`
 
@@ -43,19 +58,17 @@ You can do a lot of useful things, but the primary use cases are:
 To use this action in your GitHub workflow, add the following step:
 
 ```yaml
-jobs:
-  hello_world_job:
-    runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
+      # ...
       - name: Download stable NGINX
         uses: dvershinin/lastversion-action@main
         with:
           repository: 'nginx'
           action: 'unzip'
           branch: 'stable'
-      - name: What do we have here
+      - name: Confirm NGINX source files are in the current directory
         run: ls -al
+      # ...
 ```
 
 At this point in your GitHub workflow, you have the latest stable version of NGINX downloaded and extracted in the
@@ -64,42 +77,36 @@ current directory.
 ### Getting the latest version string of some software
 
 ```yaml
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v2
-
-  - name: Fetch latest version
-    id: lastversion
-    uses: dvershinin/lastversion-action@main
-    with:
-      repository: 'nginx'
-      branch: 'mainline'
-      output_format: 'version'
-
-  - name: Print latest version
-    run: echo "Latest version is ${{ steps.lastversion.outputs.last_version }}"
+    steps:
+      # ...
+      - name: Fetch latest version
+        id: lastversion
+        uses: dvershinin/lastversion-action@main
+        with:
+          repository: 'nginx'
+          branch: 'mainline'
+      - name: Print latest version
+        run: echo "Latest version is ${{ steps.lastversion.outputs.last_version }}"
+      # ...
 ```
 
-In this example, the `Fetch latest version` step will fetch the latest version of Nginx from the mainline branch, and 
+In this example, the `Fetch latest version` step will fetch the latest version of NGINX from the mainline branch, and 
 the `Print latest version` step will print the fetched version. You can adjust the inputs to fetch the latest version 
 of other software or GitHub projects.
 
 #### Example with GitHub repository
 
 ```yaml
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v2
-
-  - name: Fetch latest version of Mautic
-    id: lastversion
-    uses: dvershinin/lastversion-action@main
-    with:
-      repository: 'https://github.com/mautic/mautic'
-      output_format: 'version'
-
-  - name: Print latest version
-    run: echo "Latest version of Mautic is ${{ steps.lastversion.outputs.last_version }}"
+    steps:
+      # ...
+      - name: Fetch latest version of Mautic
+        id: lastversion
+        uses: dvershinin/lastversion-action@main
+        with:
+          repository: 'https://github.com/mautic/mautic'  
+      - name: Print latest version
+        run: echo "Latest version of Mautic is ${{ steps.lastversion.outputs.last_version }}"
+      # ...
 ```
 
 In this example, the `Fetch latest version of Mautic` step will fetch the latest stable version of the Mautic project, 
