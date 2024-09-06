@@ -8,7 +8,7 @@ branch=""
 extra_args=""
 github_token=""
 working_directory=""
-cache_dir="${XDG_CACHE_HOME:-${GITHUB_WORKSPACE}/.cache}"
+cache_dir="/tmp/.cache"
 
 # Parse the named arguments
 while [ "$#" -gt 0 ]; do
@@ -48,12 +48,6 @@ while [ "$#" -gt 0 ]; do
       ;;
   esac
 done
-
-# Ensure the working directory exists; create it if it doesn't
-if [ ! -d "$working_directory" ]; then
-  echo "Working directory does not exist: $working_directory. Creating it."
-  mkdir -p "$working_directory"
-fi
 
 cd "$working_directory" || exit
 
