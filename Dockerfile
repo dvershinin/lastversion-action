@@ -1,12 +1,9 @@
 # Use your existing Docker image as the base image
 FROM ghcr.io/dvershinin/lastversion:latest
 
-# Create a group and user with matching GID and UID
-RUN addgroup -g 127 runner \
-    && adduser -u 1001 -G runner -D runner
-
-# Switch to the matching user
-USER runner
+# Using "lastversion" user as provided by some linter was a mistake and causes issues with GitHub actions being ran as "runner"
+# and lastversion running as a different user and being unable to work with workspace files for extracting to its directory
+USER root
 
 # Copy the entrypoint.sh script into the container
 COPY entrypoint.sh /entrypoint.sh
