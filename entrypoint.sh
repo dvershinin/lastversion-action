@@ -51,6 +51,8 @@ done
 
 cd "$working_directory" || exit
 
+ls -al; whoami; id
+
 # Set the cache directory to a writable path
 export XDG_CACHE_HOME="$cache_dir"
 mkdir -p "$XDG_CACHE_HOME"
